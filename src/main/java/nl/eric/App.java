@@ -13,7 +13,7 @@ public class App {
         QueueManager qp = new QueueManager();
 
         Scanner userInput = new Scanner(System.in);
-        while (true) {
+        while (userInput.hasNext()) {
 
             System.out.println("Add an URL to the queue: ");
 
@@ -37,6 +37,7 @@ public class App {
 
             }
         }
+        userInput.close();
     }
 }
 

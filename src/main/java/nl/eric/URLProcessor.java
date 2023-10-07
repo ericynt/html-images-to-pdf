@@ -43,7 +43,6 @@ public class URLProcessor {
 
     public static URL[] getImageURLs (String urlString) throws IOException, InterruptedException {
 
-        int pageCount = 0;
         List<URL> urls = new ArrayList<>();
         boolean nextPage = true;
         int imageURLCount = 0;
