@@ -80,7 +80,6 @@ public class URLProcessor {
 
             if (su1.elementExists(By.xpath("//*[@id=\"gallery\"]/font[1]/span/a[contains(text(), \"next\")]"))) {
 
-                pageCount++;
                 urlString = su1.getElement(By.xpath("//*[@id=\"gallery\"]/font[1]/span/a[contains(text(), \"next\")]")).getAttribute("href");
             } else {
 
