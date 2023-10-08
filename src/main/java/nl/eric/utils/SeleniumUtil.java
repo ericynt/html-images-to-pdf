@@ -20,7 +20,7 @@ public class SeleniumUtil {
         try {
             initDriver(url, options);
         } catch (WebDriverException e) {
-            count+= 1;
+            count += 1;
 
             if (count < 2) {
 
@@ -34,7 +34,7 @@ public class SeleniumUtil {
         }
     }
 
-    private void initDriver(String url, ChromeOptions options) {
+    private void initDriver (String url, ChromeOptions options) {
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         driver.get(url);

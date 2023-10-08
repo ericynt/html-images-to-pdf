@@ -5,8 +5,7 @@ import java.util.concurrent.ExecutionException;
 
 public class App {
 
-
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main (String[] args) throws ExecutionException, InterruptedException {
 
         System.out.println("Commands: [clear queue, show queue]");
 
@@ -18,7 +17,6 @@ public class App {
             System.out.println("Add an URL to the queue: ");
 
             String input = userInput.nextLine();
-
 
             if (!input.isEmpty()) {
 
@@ -40,4 +38,3 @@ public class App {
         userInput.close();
     }
 }
-

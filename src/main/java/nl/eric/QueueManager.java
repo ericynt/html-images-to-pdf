@@ -15,7 +15,7 @@ public class QueueManager {
     private final ScheduledExecutorService scheduler;
     private Queue<String> myQueue = new ConcurrentLinkedQueue<>();
 
-    public void addUrl(String url) {
+    public void addUrl (String url) {
 
         myQueue.add(url);
 
@@ -24,7 +24,8 @@ public class QueueManager {
 
     public void showQueue () {
 
-        System.out.println("The following item(s) is/are now on the queue:\n" + Arrays.toString(myQueue.toArray()).replace(" ", "\n"));
+        System.out.println("The following item(s) is/are now on the queue:\n"
+                + Arrays.toString(myQueue.toArray()).replace(" ", "\n"));
     }
 
     public QueueManager() {
@@ -36,7 +37,7 @@ public class QueueManager {
             try {
                 String url = myQueue.remove();
 
-                System.out.println("Started working on the following item: "  + url);
+                System.out.println("Started working on the following item: " + url);
 
                 MyPDFWriter.writePDF(URLProcessor.getImageURLs(url), URLProcessor.getFilename(url));
             } catch (IOException | DocumentException | InterruptedException e) {
@@ -47,15 +48,10 @@ public class QueueManager {
                 // Don't do anything
             }
         };
-        scheduler.scheduleAtFixedRate(
-                runnable,
-                0L,
-                30L,
-                SECONDS
-        );
+        scheduler.scheduleAtFixedRate(runnable, 0L, 30L, SECONDS);
     }
 
-    public void clearQueue() {
+    public void clearQueue () {
 
         this.myQueue.clear();
 

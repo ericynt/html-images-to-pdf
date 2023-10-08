@@ -11,7 +11,7 @@ import java.net.URL;
 
 public class MyPDFWriter {
 
-    public static void writePDF(URL[] urls, String title) throws IOException, DocumentException, InterruptedException {
+    public static void writePDF (URL[] urls, String title) throws IOException, DocumentException, InterruptedException {
 
         Document document = new Document();
         String output = "./" + title + ".pdf";
@@ -26,7 +26,6 @@ public class MyPDFWriter {
 
             int addCount = 0;
             for (URL url : urls) {
-
 
                 // Download full page image and add to PDF document
                 Image image = Image.getInstance(url);
@@ -47,11 +46,11 @@ public class MyPDFWriter {
                 document.close();
                 writer.close();
 
-                System.out.println("Received " + urls.length + " URL's, but wrote " + addCount + ", deleting file " + output);
+                System.out.println(
+                        "Received " + urls.length + " URL's, but wrote " + addCount + ", deleting file " + output);
 
                 new File(output).delete();
             } else {
-
 
                 System.out.println("Done creating PDF: " + output);
             }
