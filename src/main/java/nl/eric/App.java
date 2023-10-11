@@ -2,19 +2,21 @@ package nl.eric;
 
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class App {
 
     public static void main (String[] args) throws ExecutionException, InterruptedException {
 
-        System.out.println("Commands: [clear queue, show queue]");
+        log.info("Commands: [clear queue, show queue]");
 
         QueueManager qp = new QueueManager();
 
         Scanner userInput = new Scanner(System.in);
         while (userInput.hasNext()) {
 
-            System.out.println("Add an URL to the queue: ");
+            log.info("Add an URL to the queue: ");
 
             String input = userInput.nextLine();
 

@@ -2,6 +2,7 @@ package nl.eric;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
+import lombok.extern.slf4j.Slf4j;
 import nl.eric.utils.ThreadUtil;
 
 import java.io.File;
@@ -9,9 +10,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
+@Slf4j
 public class MyPDFWriter {
 
-    public static void writePDF (URL[] urls, String title) throws IOException, DocumentException, InterruptedException {
+    public static void writePDF (URL[] urls, String title)
+            throws IOException, DocumentException, InterruptedException {
 
         Document document = new Document();
         String output = "./" + title + ".pdf";
@@ -46,13 +49,13 @@ public class MyPDFWriter {
                 document.close();
                 writer.close();
 
-                System.out.println(
-                        "Received " + urls.length + " URL's, but wrote " + addCount + ", deleting file " + output);
+                log.info("Received " + urls.length + " URL's, but wrote " + addCount
+                        + ", deleting file " + output);
 
                 new File(output).delete();
             } else {
 
-                System.out.println("Done creating PDF: " + output);
+                log.info("Done creating PDF: " + output);
             }
         }
     }

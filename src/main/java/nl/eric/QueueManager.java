@@ -1,7 +1,7 @@
 package nl.eric;
 
 import com.itextpdf.text.DocumentException;
-
+import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
@@ -10,6 +10,7 @@ import java.util.concurrent.*;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+@Slf4j
 public class QueueManager {
 
     private final ScheduledExecutorService scheduler;
@@ -24,11 +25,11 @@ public class QueueManager {
 
     public void showQueue () {
 
-        System.out.println("The following item(s) is/are now on the queue:\n"
+        log.info("The following item(s) is/are now on the queue:\n"
                 + Arrays.toString(myQueue.toArray()).replace(" ", "\n"));
     }
 
-    public QueueManager() {
+    public QueueManager () {
 
         scheduler = Executors.newScheduledThreadPool(1, new DaemonThreadFactory());
 
@@ -37,12 +38,12 @@ public class QueueManager {
             try {
                 String url = myQueue.remove();
 
-                System.out.println("Started working on the following item: " + url);
+                log.info("Started working on the following item: " + url);
 
                 MyPDFWriter.writePDF(URLProcessor.getImageURLs(url), URLProcessor.getFilename(url));
             } catch (IOException | DocumentException | InterruptedException e) {
 
-                System.out.println("Something went wrong: " + e);
+                log.info("Something went wrong: " + e);
             } catch (NoSuchElementException e) {
 
                 // Don't do anything
@@ -55,6 +56,6 @@ public class QueueManager {
 
         this.myQueue.clear();
 
-        System.out.println("Queue cleared");
+        log.info("Queue cleared");
     }
 }

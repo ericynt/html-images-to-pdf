@@ -4,7 +4,7 @@ import nl.eric.utils.SeleniumUtil;
 import nl.eric.utils.ThreadUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
+import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class URLProcessor {
 
     public static String getFilename (String urlString) {
@@ -19,13 +20,15 @@ public class URLProcessor {
         SeleniumUtil su = new SeleniumUtil(urlString);
 
         // Get the filename and format it to use it for the filename
-        String filename = Arrays.stream(su.getTitle().replaceAll("[\\\\/:*?\"<>|]", "").replace(" ", "_").split("_"))
+        String filename = Arrays.stream(
+                su.getTitle().replaceAll("[\\\\/:*?\"<>|]", "").replace(" ", "_").split("_"))
                 .map(s -> {
 
                     s = s.toLowerCase();
                     if (s.length() > 0) {
 
-                        return (s.charAt(0) + "").toUpperCase() + (s.length() > 1 ? s.substring(1) : "");
+                        return (s.charAt(0) + "").toUpperCase()
+                                + (s.length() > 1 ? s.substring(1) : "");
                     } else {
 
                         return s;
@@ -58,17 +61,21 @@ public class URLProcessor {
 
                 SeleniumUtil su2 = new SeleniumUtil(href);
                 // Get full page image URL
-                String imageURLString = su2.getElement(By.xpath("//*[@id=\"slideshow\"]/center/div[1]/span/img"))
-                        .getAttribute("src");
+                String imageURLString =
+                        su2.getElement(By.xpath("//*[@id=\"slideshow\"]/center/div[1]/span/img"))
+                                .getAttribute("src");
                 su2.closeWebdriver();
 
                 // Save full page image URL
                 urls.add(new URL(imageURLString));
             }
 
-            if (su1.elementExists(By.xpath("//*[@id=\"gallery\"]/font[1]/span/a[contains(text(), \"next\")]"))) {
+            if (su1.elementExists(
+                    By.xpath("//*[@id=\"gallery\"]/font[1]/span/a[contains(text(), \"next\")]"))) {
 
-                urlString = su1.getElement(By.xpath("//*[@id=\"gallery\"]/font[1]/span/a[contains(text(), \"next\")]"))
+                urlString = su1
+                        .getElement(By.xpath(
+                                "//*[@id=\"gallery\"]/font[1]/span/a[contains(text(), \"next\")]"))
                         .getAttribute("href");
             } else {
 
@@ -83,7 +90,7 @@ public class URLProcessor {
             return urls.toArray(URL[]::new);
         } else {
 
-            System.out.println("Retrieved " + imageURLCount + " image URL's, but found " + urls.size()
+            log.info("Retrieved " + imageURLCount + " image URL's, but found " + urls.size()
                     + " in the gallery, returning empty array");
 
             return new URL[0];

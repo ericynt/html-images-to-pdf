@@ -3,15 +3,16 @@ package nl.eric.utils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
+import lombok.extern.slf4j.Slf4j;
 import java.time.Duration;
 import java.util.List;
 
+@Slf4j
 public class SeleniumUtil {
 
     private WebDriver driver;
 
-    public SeleniumUtil(String url) {
+    public SeleniumUtil (String url) {
 
         int count = 0;
 
@@ -24,7 +25,7 @@ public class SeleniumUtil {
 
             if (count < 2) {
 
-                System.out.println("Retrying Webdriver init");
+                log.info("Retrying Webdriver init");
 
                 initDriver(url, options);
             } else {
